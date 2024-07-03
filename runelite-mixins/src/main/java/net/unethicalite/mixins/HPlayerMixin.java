@@ -1,5 +1,8 @@
 package net.unethicalite.mixins;
 
+import net.runelite.api.Perspective;
+import net.runelite.api.Point;
+import net.runelite.api.coords.LocalPoint;
 import net.unethicalite.api.events.MenuAutomated;
 import net.unethicalite.api.util.Text;
 import net.runelite.api.MenuAction;
@@ -9,6 +12,8 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.mixins.RSPlayerMixin;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSPlayer;
+
+import java.awt.*;
 
 @Mixin(RSPlayer.class)
 public abstract class HPlayerMixin extends RSPlayerMixin implements RSPlayer
@@ -118,5 +123,28 @@ public abstract class HPlayerMixin extends RSPlayerMixin implements RSPlayer
 	public MenuAutomated getMenu(int actionIndex, int opcode)
 	{
 		return getMenu(actionIndex, opcode, 0, 0);
+	}
+
+	@Inject
+	@Override
+	public boolean isPointWithin(Point point)
+	{
+		Shape convexHull = this.getConvexHull();
+		return convexHull.contains(point.getX(), point.getY());
+	}
+
+	Point predictPoint = null;
+
+	@Inject
+	@Override
+	public Point getPredictPoint()
+	{
+		return predictPoint;
+	}
+	@Inject
+	@Override
+	public void setPredictPoint(Point point)
+	{
+		predictPoint = point;
 	}
 }

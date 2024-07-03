@@ -1,5 +1,6 @@
 package net.unethicalite.mixins;
 
+import java.awt.*;
 import java.util.Arrays;
 import net.unethicalite.api.events.MenuAutomated;
 import net.unethicalite.api.util.Randomizer;
@@ -130,5 +131,25 @@ public abstract class HWidgetMixin implements RSWidget
 	public MenuAutomated getMenu(int actionIndex, int opcode)
 	{
 		return getMenu(getMenuIdentifier(actionIndex), opcode, getIndex(), getId(), getItemId());
+	}
+
+	@Inject
+	public boolean isPointWithin(Point point)
+	{
+		Rectangle bounds = getBounds();
+		return bounds.contains(point.getX(), point.getY());
+	}
+
+	Point predictPoint = null;
+
+	@Inject
+	public Point getPredictPoint()
+	{
+		return predictPoint;
+	}
+	@Inject
+	public void setPredictPoint(Point point)
+	{
+		predictPoint = point;
 	}
 }

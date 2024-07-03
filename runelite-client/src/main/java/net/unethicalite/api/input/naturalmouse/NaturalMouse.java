@@ -16,8 +16,11 @@ import net.unethicalite.api.input.naturalmouse.support.DefaultSpeedManager;
 import net.unethicalite.api.input.naturalmouse.support.Flow;
 import net.unethicalite.api.input.naturalmouse.support.MouseMotionNature;
 import net.unethicalite.api.input.naturalmouse.support.SinusoidalDeviationProvider;
+import net.unethicalite.api.input.naturalmouse.util.FactoryTemplates;
 import net.unethicalite.api.input.naturalmouse.util.FlowTemplates;
 import net.unethicalite.api.input.naturalmouse.util.Pair;
+import net.unethicalite.client.config.UnethicaliteConfig;
+import net.unethicalite.client.managers.interaction.MovementFactoryType;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -33,6 +36,8 @@ public class NaturalMouse
 {
 	private final ThreadLocalRandom random = ThreadLocalRandom.current();
 	private final MouseMotionNature nature;
+	@Inject
+	private UnethicaliteConfig config;
 	@Inject
 	private Client client;
 	@Inject
@@ -86,6 +91,27 @@ public class NaturalMouse
 
 	public MouseMotionFactory getFactory()
 	{
+		if (config != null)
+		{
+			MovementFactoryType movementFactoryType = config.movementFactoryType();
+			if (movementFactoryType == MovementFactoryType.Average)
+			{
+				return FactoryTemplates.createAverageComputerUserMotionFactory(nature);
+			}
+			else if (movementFactoryType == MovementFactoryType.FastGamer)
+			{
+				return FactoryTemplates.createFastGamerMotionFactory(nature);
+			}
+			else if (movementFactoryType == MovementFactoryType.Robot)
+			{
+				return FactoryTemplates.createDemoRobotMotionFactory(nature, 100);
+			}
+			else if (movementFactoryType == MovementFactoryType.Granny)
+			{
+				return FactoryTemplates.createGrannyMotionFactory(nature);
+			}
+		}
+
 		var factory = new MouseMotionFactory();
 		factory.setNature(nature);
 		factory.setRandom(random);

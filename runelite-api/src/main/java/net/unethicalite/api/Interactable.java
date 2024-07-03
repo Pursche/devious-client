@@ -111,11 +111,30 @@ public interface Interactable
 			return;
 		}
 
+
 		interact(index);
 	}
 
 	default void interact(String... actions)
 	{
 		interact(Predicates.texts(actions));
+	}
+
+	boolean isPointWithin(Point point);
+
+	Point getPredictPoint();
+	void setPredictPoint(Point point);
+
+	// Gets predict point which we can move our mouse to
+	default Point predict()
+	{
+		Point predictPoint = getPredictPoint();
+		if (predictPoint != null && isPointWithin(predictPoint))
+			return predictPoint;
+
+		predictPoint = getClickPoint();
+		setPredictPoint(predictPoint);
+
+		return predictPoint;
 	}
 }

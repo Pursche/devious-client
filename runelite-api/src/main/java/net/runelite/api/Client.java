@@ -2753,6 +2753,8 @@ public interface Client extends OAuthApi, GameEngine
 
 	void interact(MenuAutomated menuAutomated);
 
+	void moveMouseTo(Point point);
+
 	int getMouseLastPressedX();
 
 	void setMouseLastPressedX(int x);

@@ -1,6 +1,7 @@
 package net.unethicalite.mixins;
 
-import java.awt.Shape;
+import java.awt.*;
+
 import net.unethicalite.api.events.MenuAutomated;
 import net.unethicalite.api.util.Randomizer;
 import net.unethicalite.api.util.Text;
@@ -186,5 +187,33 @@ public abstract class HTileItemMixin implements RSTileItem
 	{
 		return getMenu(getId(), opcode,
 				getTile().getSceneLocation().getX(), getTile().getSceneLocation().getY());
+	}
+
+	@Inject
+	public boolean isPointWithin(Point point)
+	{
+		LocalPoint localPoint = this.getLocalLocation();
+		if (localPoint == null)
+		{
+			return false;
+		}
+
+		Shape convexHull = this.getModel().getConvexHull(localPoint.getX(), localPoint.getY(), 0,
+				Perspective.getTileHeight(client, localPoint, this.getWorldLocation().getPlane()));
+
+		return convexHull.contains(point.getX(), point.getY());
+	}
+
+	Point predictPoint = null;
+
+	@Inject
+	public Point getPredictPoint()
+	{
+		return predictPoint;
+	}
+	@Inject
+	public void setPredictPoint(Point point)
+	{
+		predictPoint = point;
 	}
 }

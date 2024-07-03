@@ -1,5 +1,7 @@
 package net.unethicalite.mixins;
 
+import net.runelite.api.Perspective;
+import net.runelite.api.Point;
 import net.unethicalite.api.events.MenuAutomated;
 import net.unethicalite.api.util.Text;
 import net.runelite.api.MenuAction;
@@ -10,6 +12,8 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSNPC;
 import net.runelite.rs.api.RSNPCComposition;
+
+import java.awt.*;
 
 @Mixin(RSNPC.class)
 public abstract class HNpcMixin implements RSNPC
@@ -146,5 +150,28 @@ public abstract class HNpcMixin implements RSNPC
 	public MenuAutomated getMenu(int actionIndex, int opcode)
 	{
 		return getMenu(getIndex(), opcode, 0, 0);
+	}
+
+	@Inject
+	@Override
+	public boolean isPointWithin(Point point)
+	{
+		Shape convexHull = this.getConvexHull();
+		return convexHull.contains(point.getX(), point.getY());
+	}
+
+	Point predictPoint = null;
+
+	@Inject
+	@Override
+	public Point getPredictPoint()
+	{
+		return predictPoint;
+	}
+	@Inject
+	@Override
+	public void setPredictPoint(Point point)
+	{
+		predictPoint = point;
 	}
 }

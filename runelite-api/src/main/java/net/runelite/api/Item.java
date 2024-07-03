@@ -358,6 +358,26 @@ public class Item implements Interactable, Identifiable, EntityNameable
 		return null;
 	}
 
+	@Override
+	public boolean isPointWithin(Point point)
+	{
+		Rectangle bounds = getBounds();
+		return bounds.contains(point.getX(), point.getY());
+	}
+
+	Point predictPoint = null;
+
+	@Override
+	public Point getPredictPoint()
+	{
+		return predictPoint;
+	}
+	@Override
+	public void setPredictPoint(Point point)
+	{
+		predictPoint = point;
+	}
+
 	private Rectangle getBounds()
 	{
 		Widget widget = client.getWidget(getWidgetId());

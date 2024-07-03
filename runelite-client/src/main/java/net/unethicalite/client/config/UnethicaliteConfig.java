@@ -12,6 +12,7 @@ import net.unethicalite.api.movement.pathfinder.model.poh.JewelryBox;
 import static net.unethicalite.client.config.UnethicaliteConfig.CONFIG_GROUP;
 import net.unethicalite.client.managers.interaction.InteractMethod;
 import net.unethicalite.client.managers.interaction.MouseBehavior;
+import net.unethicalite.client.managers.interaction.MovementFactoryType;
 
 @ConfigGroup(CONFIG_GROUP)
 public interface UnethicaliteConfig extends Config
@@ -171,6 +172,17 @@ public interface UnethicaliteConfig extends Config
 	default MouseBehavior mouseBehavior()
 	{
 		return MouseBehavior.CLICKBOXES;
+	}
+
+	@ConfigItem(
+			keyName = "movementFactory",
+			name = "Movement factory",
+			description = "Mouse Movement Factory to use for Natural Mouse",
+			hidden = true
+	)
+	default MovementFactoryType movementFactoryType()
+	{
+		return MovementFactoryType.Average;
 	}
 
 	@ConfigItem(

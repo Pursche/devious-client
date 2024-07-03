@@ -22,4 +22,27 @@ public abstract class HActorMixin implements RSActor
 		Shape convexHull = getConvexHull();
 		return convexHull != null ? Randomizer.getRandomPointIn(convexHull.getBounds()) : null;
 	}
+
+	@Inject
+	public boolean isPointWithin(Point point)
+	{
+		Shape convexHull = getConvexHull();
+		if (convexHull == null)
+			return false;
+
+		return convexHull.contains(point.getX(), point.getY());
+	}
+
+	Point predictPoint = null;
+
+	@Inject
+	public Point getPredictPoint()
+	{
+		return predictPoint;
+	}
+	@Inject
+	public void setPredictPoint(Point point)
+	{
+		predictPoint = point;
+	}
 }

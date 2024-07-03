@@ -1,6 +1,7 @@
 package net.unethicalite.mixins;
 
-import java.awt.Shape;
+import java.awt.*;
+
 import net.runelite.api.ObjectComposition;
 import net.unethicalite.api.events.MenuAutomated;
 import net.unethicalite.api.util.Randomizer;
@@ -179,5 +180,25 @@ public abstract class HTileObjectMixin implements TileObject
 	public MenuAutomated getMenu(int actionIndex, int opcode)
 	{
 		return getMenu(getId(), opcode, menuPoint().getX(), menuPoint().getY());
+	}
+
+	@Inject
+	public boolean isPointWithin(Point point)
+	{
+		Shape shape = this.getClickbox();
+		return shape.contains(point.getX(), point.getY());
+	}
+
+	Point predictPoint = null;
+
+	@Inject
+	public Point getPredictPoint()
+	{
+		return predictPoint;
+	}
+	@Inject
+	public void setPredictPoint(Point point)
+	{
+		predictPoint = point;
 	}
 }

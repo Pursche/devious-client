@@ -5,6 +5,7 @@ import net.runelite.client.config.ConfigManager;
 import net.unethicalite.client.config.UnethicaliteConfig;
 import net.unethicalite.client.managers.interaction.InteractMethod;
 import net.unethicalite.client.managers.interaction.MouseBehavior;
+import net.unethicalite.client.managers.interaction.MovementFactoryType;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -30,6 +31,7 @@ public class InteractionContainer extends PanelContainer
 				mouseEventsContainer.setBorder(new TitledBorder("Mouse events"));
 				mouseEventsContainer.add(createCheckBox("Natural mouse", "naturalMouse"), "wrap");
 				mouseEventsContainer.add(createComboBoxSection("Mouse behavior", "mouseBehavior", MouseBehavior.class), "wrap");
+				mouseEventsContainer.add(createComboBoxSection("Movement factory", "movementFactory", MovementFactoryType.class), "wrap");
 				add(mouseEventsContainer, "wrap");
 				break;
 

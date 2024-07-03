@@ -186,6 +186,19 @@ public class InteractionManager
 		}
 	}
 
+	public void moveMouseTo(Point point)
+	{
+		if (config.interactMethod() == InteractMethod.MOUSE_EVENTS)
+		{
+			MouseHandler mouseHandler = client.getMouseHandler();
+
+			if (config.naturalMouse())
+			{
+				naturalMouse.moveTo(point.x, point.y);
+			}
+		}
+	}
+
 	public void setHoveredEntity(SceneEntity entity)
 	{
 		if (entity != null)
