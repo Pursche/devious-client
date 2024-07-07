@@ -1,6 +1,6 @@
 package net.unethicalite.mixins;
 
-import java.awt.*;
+import java.awt.Shape;
 
 import net.unethicalite.api.events.MenuAutomated;
 import net.unethicalite.api.util.Randomizer;

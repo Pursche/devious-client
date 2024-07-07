@@ -1,6 +1,5 @@
 package net.unethicalite.mixins;
 
-import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.unethicalite.api.events.MenuAutomated;
 import net.unethicalite.api.util.Text;
@@ -13,7 +12,7 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSNPC;
 import net.runelite.rs.api.RSNPCComposition;
 
-import java.awt.*;
+import java.awt.Shape;
 
 @Mixin(RSNPC.class)
 public abstract class HNpcMixin implements RSNPC

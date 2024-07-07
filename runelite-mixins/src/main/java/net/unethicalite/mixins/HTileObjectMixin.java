@@ -1,6 +1,6 @@
 package net.unethicalite.mixins;
 
-import java.awt.*;
+import java.awt.Shape;
 
 import net.runelite.api.ObjectComposition;
 import net.unethicalite.api.events.MenuAutomated;
